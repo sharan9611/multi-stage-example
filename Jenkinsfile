@@ -47,7 +47,7 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
          script {
-                sh "docker tag ${multi}:${latest} ${https://github.com/sharan9611/multi-stage-example.git}:$latest"
+                sh "docker tag ${multi}:${latest} ${https://github.com/sharan9611/multi-stage-example.git}:latest"
                 sh "docker push ${461706885282}.dkr.ecr.${us-west-1}.amazonaws.com/${multi}:${latest}"
 }
          }
