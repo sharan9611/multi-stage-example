@@ -2,7 +2,7 @@ pipeline {
     agent any
     tools {
         maven 'maven'
-        JDK 'JDK'
+        java 'java'
     }
     environment {
         AWS_ACCOUNT_ID="461706885282"
