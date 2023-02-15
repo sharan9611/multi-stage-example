@@ -9,7 +9,7 @@ pipeline {
         AWS_DEFAULT_REGION="us-west-1" 
         IMAGE_REPO_NAME="multi"
         IMAGE_TAG= "latest"
-        REPOSITORY_URI = "${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}"
+        REPOSITORY_URI = "${461706885282}.dkr.ecr.${us-west-1}.amazonaws.com/${multi}"
     }
    
     stages {
@@ -17,7 +17,7 @@ pipeline {
          stage('Logging into AWS ECR') {
             steps {
                 script {
-                sh "aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username sharan9611 --password-Madhurani@24 ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com"
+                sh "aws ecr get-login-password --region ${us-west-1} | docker login --username sharan9611 --password-Madhurani@24 ${461706885282}.dkr.ecr.${us-west-1}.amazonaws.com"
                 }
                  
             }
@@ -25,7 +25,7 @@ pipeline {
         
         stage('Cloning Git') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/sharan9611/multi-stage-example.git']]])     
+                checkout([$class: 'GitSCM', branches: [[name: '*/dev']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'github', url: 'https://github.com/sharan9611/multi-stage-example.git']]])     
             }
         }
          stage('Maven Build') {
@@ -38,7 +38,7 @@ pipeline {
     stage('Building image') {
       steps{
         script {
-          dockerImage = docker.build "${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+          dockerImage = docker.build "${multi}:${latest}"
         }
       }
     }
@@ -47,8 +47,8 @@ pipeline {
     stage('Pushing to ECR') {
      steps{  
          script {
-                sh "docker tag ${IMAGE_REPO_NAME}:${IMAGE_TAG} ${REPOSITORY_URI}:$IMAGE_TAG"
-                sh "docker push ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${IMAGE_REPO_NAME}:${IMAGE_TAG}"
+                sh "docker tag ${multi}:${latest} ${https://github.com/sharan9611/multi-stage-example.git}:$latest"
+                sh "docker push ${461706885282}.dkr.ecr.${us-west-1}.amazonaws.com/${multi}:${latest}"
 }
          }
         }
